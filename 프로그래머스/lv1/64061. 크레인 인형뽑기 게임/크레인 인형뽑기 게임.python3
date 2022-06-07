@@ -1,0 +1,38 @@
+def solution(board, moves):
+    answer = 0
+    result = []
+    flag = True
+
+    board = list(zip(*board[::-1]))
+
+    for index in range(len(board)):
+        board[index] = list(board[index][::-1])
+
+    for i in moves:
+        current_line = board[i-1]
+
+        for index in range(len(current_line)):
+            if current_line[index] != 0:
+                result.append(current_line[index])
+                current_line[index] = 0
+                break
+
+    while(True):
+        if flag == False:
+            break
+        flag = False
+        for index in range(len(result)):
+            count = 0
+            try:
+                if result[index] == result[index+1]:
+                    answer += 2
+                    del result[index]
+                    del result[index]
+                    flag = True
+                    print(result)
+                else:
+                    count+=1
+            except:
+                pass
+
+    return answer
