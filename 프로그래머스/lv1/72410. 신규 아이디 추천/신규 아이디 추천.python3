@@ -1,0 +1,61 @@
+import re
+
+def remove_dot(new_id):
+    remove_result = new_id
+    while(True):
+        isEnd = False
+        if len(remove_result) == 0:
+            break
+
+        if remove_result[0] == '.':
+            remove_result = remove_result[1:]
+            isEnd = True
+        elif remove_result[-1] == '.':
+            remove_result = remove_result[:-1]
+            isEnd = True
+
+        if isEnd == False:
+            break
+                
+    return remove_result
+
+
+def solution(new_id):
+    answer = ''
+    allow_pattern = re.compile('[a-z]|[0-9]|[-_.]')
+    
+    #1단계
+    new_id = new_id.lower()
+    
+    #2단계
+    new_id = ''.join(allow_pattern.findall(new_id))
+    
+    #3단계
+    while(True):
+        isEnd = False
+        if '..' in new_id:
+            new_id = new_id.replace('..', '.')
+            isEnd = True
+        if isEnd == False:
+            break
+    
+    #4단계             
+    new_id = remove_dot(new_id)
+    
+    #5단계
+    if len(new_id) == 0:
+        new_id = 'a'
+        
+    #6단계
+    if len(new_id) >= 16:
+        new_id = new_id[:15]
+    new_id = remove_dot(new_id)
+    
+    #7단계
+    if len(new_id) <= 2:
+        while(len(new_id) < 3):
+            new_id = new_id + new_id[-1]
+    
+    answer = new_id
+    
+    return answer
