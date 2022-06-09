@@ -1,0 +1,34 @@
+def solution(id_list, report, k):
+    answer = []
+    report_result = {}
+    report_count = {}
+    
+    for name in id_list:
+        report_result[name] = []
+        report_count[name] = 0
+    
+    for content in report:
+        reporter = content.split(' ')[0]
+        defendant = content.split(' ')[1]
+        if not defendant in report_result[reporter]:
+            report_result[reporter].append(defendant)
+        
+    for name in report_result.keys():
+        for defendant in report_result[name]:
+            report_count[defendant] += 1
+    
+    defendant_list = []
+    
+    for name in report_count.keys():
+        if report_count[name] >= k:
+            defendant_list.append(name)
+    
+    for name in report_result.keys():
+        report_history = report_result[name]
+        mail_count = 0
+        for defendant in defendant_list:
+            if defendant in report_history:
+                mail_count += 1
+        answer.append(mail_count)
+
+    return answer
