@@ -3,18 +3,22 @@ import sys
 def main():
     N = int(sys.stdin.readline())
 
-    min = N
-    answer = 0
+    digit = len(str(N))
+    answer = N
 
-    for i in range(1,N):
-        product = sum(list(map(int, list(str(i))))) + i
-        if product == N and i <= min:
-            min = i
+    if digit > 2:
+        for i in range(N-digit*9-1, N):
+            product = sum(list(map(int, list(str(i))))) + i
+            if product == N and i <= answer:
+                answer = i
+    else:  
+        for i in range(0,N):
+            product = sum(list(map(int, list(str(i))))) + i
+            if product == N and i <= answer:
+                answer = i
 
-    if min == N:
+    if answer == N:
         answer = 0
-    else:
-        answer = min
 
     print(answer)
 
