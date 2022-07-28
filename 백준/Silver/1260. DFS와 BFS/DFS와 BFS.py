@@ -54,11 +54,11 @@ def solution():
     DFS(V-1)
     visited = [False for i in range(N)]
     BFS(V-1)
-    
+
     if not dfs_answer:
-        dfs_answer.append(1)
+        dfs_answer.append(V)
     if not bfs_answer:
-        bfs_answer.append(1)
+        bfs_answer.append(V)
 
     print(*dfs_answer)
     print(*bfs_answer)
