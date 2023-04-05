@@ -2,26 +2,19 @@ import sys
 import math
 
 def solution():
-    M, N = map(int, sys.stdin.readline().strip().split(' '))
-    numbers = []
-    answer = []
+    n, m = map(int, sys.stdin.readline().split())
+    nums = [True for i in range(0, m+1)]
+    nums[0] = False
+    nums[1] = False
 
-    for i in range(N+1):
-        numbers.append(i)
+    for i in range(2, round(math.sqrt(m))+1):
+        for j in range(i*2, m+1, i):
+            nums[j] = False
 
-    sqrt = int(math.sqrt(N))
+    for i, result in enumerate(nums):
+        if i >= n and result:
+            print(i)
 
-    for i in range(2, sqrt + 1):
-        for j in range(i*2, N+1, i):
-            numbers[j] = 0
-
-
-    for number in numbers:
-        if number != 0 and number != 1 and number >= M:
-            answer.append(number)
-
-    for number in answer:
-        print(number)
 
 if __name__ == "__main__":
     solution()
