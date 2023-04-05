@@ -1,41 +1,43 @@
 import sys
 
-def main():
-    M, N = map(int, sys.stdin.readline().split())
+def change_count(Board):
+    w_count = 0
+    b_count = 0
+
+    W_Board = ['WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW']
+    B_Board = ['BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB']
+
+    for x in range(8):
+        for y in range(8):
+            if Board[x][y] != W_Board[x][y]:
+                w_count += 1
+            if Board[x][y] != B_Board[x][y]:
+                b_count += 1
+
+    return min(w_count, b_count)
+
+def slice_board(Board, x, y):
     board = []
-    white_board = ['WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW']
-    black_board = ['BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB', 'BWBWBWBW', 'WBWBWBWB']
-    min_change = 64
 
-    for i in range(M):
-        board.append(sys.stdin.readline().strip())
+    for i in range(x, x+8):
+        board.append(Board[i][y:y+8])
 
-    def check_board(list):
-        W_Check = 0
-        B_Check = 0
-        for i in range(8):
-            for j in range(8):
-                if list[i][j] != white_board[i][j]:
-                    W_Check += 1
-                if list[i][j] != black_board[i][j]:
-                    B_Check += 1
+    return board
 
-        if W_Check >= B_Check:
-            return B_Check
-        else:
-            return W_Check
+def solution():
+    n, m = map(int, sys.stdin.readline().split())
 
+    Board = []
+    answer = sys.maxsize
 
-    for i in range(M-7):
-        for j in range(N-7):
-            slice_board = []
-            for k in range(8):
-                slice_board.append(board[i+k][j:j+8])
-            result = check_board(slice_board)
-            if result <= min_change:
-                min_change = result
+    for i in range(n):
+        Board.append(sys.stdin.readline().strip())
 
-    print(min_change)
+    for x in range(n+1-8):
+        for y in range(m+1-8):
+            answer = min(answer, change_count(slice_board(Board, x, y)))
+
+    print(answer)
 
 if __name__ == "__main__":
-    main()
+    solution()
