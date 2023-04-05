@@ -1,18 +1,20 @@
 import sys
 
-def main():
-    N = int(sys.stdin.readline())
-    i = 666
-    answer = 0
+def solution():
+    n = int(sys.stdin.readline().strip())
+    num = 666
+    count = 0
 
-    while N != 0:
-        temp = str(i)
-        if "666" in temp:
-            answer = i
-            N-=1
+    while True:
+        if str(num).find("666") >= 0:
+            count += 1
 
-        i+=1
-    print(answer)
+        if count == n:
+            break
+
+        num += 1
+
+    print(num)
 
 if __name__ == "__main__":
-    main()
+    solution()
